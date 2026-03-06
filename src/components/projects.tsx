@@ -94,7 +94,7 @@ function Projects({ projects }: ProjectsProps) {
 
 export default Projects;
 
-const Card = ({ title, image }: Project) => {
+const Card = ({ title, image, description }: Project) => {
   const [hover, setHover] = useState(false);
   const { setVariant } = useVariants();
 
@@ -110,7 +110,7 @@ const Card = ({ title, image }: Project) => {
   return (
     <motion.div
       layout
-      className="relative rounded-xl md:rounded-3xl overflow-hidden aspect-square bg-secondary/30 md:px-4"
+      className="relative rounded-xl md:rounded-3xl overflow-hidden aspect-square bg-secondary/30 md:px-4 flex flex-col"
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
     >
@@ -140,17 +140,21 @@ const Card = ({ title, image }: Project) => {
             animate={{ y: hover ? -10 : 0, opacity: hover ? 1 : 0 }}
             className="absolute text-white/50"
           >
-            Lorem ipsum dolor sit amet.
+            {description}
           </motion.p>
         </div>
       </div>
-      <img
-        src={image.url}
-        width={500}
-        height={500}
-        alt={title}
-        className="object-cover h-full w-full object-center rounded-xl md:rounded-t-3xl"
-      />
+      <div className="flex-1 min-h-0 overflow-hidden rounded-xl md:rounded-t-3xl">
+        <motion.img
+          src={image.url}
+          width={500}
+          height={500}
+          alt={title}
+          className="object-cover h-full w-full object-center rounded-xl md:rounded-t-3xl"
+          animate={{ scaleY: hover ? 0.92 : 1 }}
+          style={{ transformOrigin: "bottom" }}
+        />
+      </div>
     </motion.div>
   );
 };

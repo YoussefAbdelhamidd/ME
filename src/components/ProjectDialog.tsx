@@ -41,9 +41,12 @@ const ProjectDialog = ({
             <div className="flex items-center justify-between">
               <h5 className="text-4xl font-bold">{selectedProject.title}</h5>
               <div className="flex items-center gap-4">
-                <Link href={selectedProject.githuburl}>
-                  <Github />
-                </Link>
+                {selectedProject.githuburl &&
+                  selectedProject.githuburl !== "#" && (
+                    <Link href={selectedProject.githuburl}>
+                      <Github />
+                    </Link>
+                  )}
                 <Link href={selectedProject.liveurl}>
                   <ExternalLink />
                 </Link>
@@ -60,10 +63,7 @@ const ProjectDialog = ({
               ))}
             </div>
             <p className="text-white/50">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Accusantium, tempora. Officiis eveniet harum nemo sed sint
-              distinctio fugiat earum cumque aliquid in magnam nam odio
-              molestias architecto veniam, asperiores voluptates?
+              {selectedProject.description}
             </p>
           </div>
         </div>
