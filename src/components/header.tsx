@@ -36,7 +36,7 @@ const Header = ({ social }: HeaderProps) => {
   };
 
   return (
-    <motion.header className="fixed top-0 md:mt-12 md:mr-12 right-0 z-20">
+    <motion.header className="fixed top-0 left-0 right-0 md:left-auto md:right-0 md:mt-12 md:mr-12 z-20 w-full md:w-auto">
       <Transition className="fixed md:top-8 top-6 md:left-8 left-6 z-30 ">
         <Link href={"/"}>
           <TextReveal className="font-semibold ">Youssef</TextReveal>
@@ -46,7 +46,7 @@ const Header = ({ social }: HeaderProps) => {
         initial={false}
         animate={isActive ? "open" : "closed"}
         variants={variants}
-        className="absolute top-0 right-0 md:-top-6 md:-right-6 w-dvw md:w-[480px] h-dvh md:h-[calc(100dvh_-_2.5rem)] bg-primary"
+        className="absolute top-0 right-0 md:-top-6 md:-right-6 w-full md:w-[480px] h-dvh md:h-[calc(100dvh_-_2.5rem)] bg-primary max-w-[100vw]"
       >
         {isActive && (
           <nav className="flex justify-between flex-col w-full h-full px-10 pt-[100px] pb-[50px]">
@@ -138,7 +138,7 @@ function Button({
   toggleMenu: () => void;
 }) {
   return (
-    <div className="absolute md:top-0 top-4 right-4 md:right-0 w-[100px] h-10 rounded-full overflow-hidden cursor-pointer">
+    <div className="absolute md:top-0 top-4 right-4 md:right-0 w-[100px] h-10 rounded-full overflow-hidden cursor-pointer z-40">
       <motion.div
         className="relative w-full h-full"
         animate={{ top: isActive ? "-100%" : "0%" }}

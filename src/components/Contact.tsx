@@ -43,21 +43,31 @@ const Contact = ({ email, social_handle, about }: ContactProps) => {
     setStatus("SENDING");
 
     try {
-      console.log("Form data:", formData);
-      setTimeout(() => {
-        setStatus("DONE");
-        setFormData({
-          email: "",
-          message: "",
-          name: "",
-          subject: "",
-        });
-        setStatusText("Message sent successfully!");
-      }, 3000);
-    } catch (error: any) {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.error || "Failed to send message");
+      }
+
+      setStatus("DONE");
+      setFormData({
+        email: "",
+        message: "",
+        name: "",
+        subject: "",
+      });
+      setStatusText("Message sent successfully!");
+    } catch (error: unknown) {
       setStatus("ERROR");
-      setStatusText("Error in sending message: " + error.message);
-      console.error("Error sending message:", error.message);
+      setStatusText(
+        error instanceof Error ? error.message : "Error sending message"
+      );
     }
   };
 
@@ -168,14 +178,19 @@ const Contact = ({ email, social_handle, about }: ContactProps) => {
               </Transition>
             </div>
           </form>
-          <div className="md:justify-self-end flex flex-col">
+          <div className="md:justify-self-end flex flex-col min-w-0">
             <div className="pb-4">
               <Transition>
                 <span className="text-white/90">Get in touch</span>
               </Transition>
-              <div className="text-2xl md:text-4xl font-bold py-2">
+              <div className="text-2xl md:text-4xl font-bold py-2 min-w-0">
                 <Transition>
-                  <TextReveal>{email}</TextReveal>
+                  <a
+                    href={`mailto:${email}`}
+                    className="break-all block w-full overflow-hidden"
+                  >
+                    {email}
+                  </a>
                 </Transition>
               </div>
               <Transition>
